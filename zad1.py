@@ -7,7 +7,7 @@ class Article():
         self.__views = 0
         self.__comments = []
 
-# title
+    # title
     @property
     def title(self):  
         return self.__title
@@ -135,9 +135,10 @@ class Article():
             self.__views += num
 
     def __str__(self):
-        return "title: " + str(self.__title) + \
-            ", author: " + str(self.__author) + \
-            ", description: " + str(self.__description) + \
-            ", category: " + str(self.__category) + \
-            ", views: " + str(self.__views) + \
-            ", number_of_comments: " + str(len(self.__comments))
+        return "title: " + str(self.title) + \
+            ", author: " + str(self.author) + \
+            ", description: " + str(self.description) + \
+            ", category: " + str(self.category) + \
+            ", views: " + str(self.views) + \
+            ", number_of_comments: " + str(len(self.comments))
+

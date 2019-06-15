@@ -1,0 +1,6 @@
+test1.insert_new_comment('titlea', 'autor','1')
+test1.insert_new_comment('titleb', 'autor','2')
+test1.insert_new_comment('titlec', 'autor','3')
+test1.insert_new_comment('title4', 'autor3','3')
+test1.insert_new_comment('title5', 'autor3','3')
+test1.insert_new_comment('title6', 'autor3','3')
