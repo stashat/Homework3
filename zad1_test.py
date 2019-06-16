@@ -3,29 +3,80 @@ from zad1 import Article
 test1 = Article()
 test1.title = 'title'
 print('test 1: ', test1.title)
-test1.title = 56
+
+try:
+    test1.title = 56
+except ValueError as err:
+    print(err)
+
 print('test 2: ', test1.title)
-test1.title = 'te st'
+
+try:
+    test1.title = 'te st'
+except ValueError as err:
+    print(err)
+
 print('test 3: ', test1.title)
-test1.author = 'stasatadic'
+
+try:
+    test1.author = 'stasatadic'
+except ValueError as err:
+    print(err)
+
 print('test 4: ', test1.author)
-test1.author = 'stasa tadic'
+try:
+    test1.author = 'stasa tadic'
+except ValueError as err:
+    print(err)
+
 print('test 5: ', test1.author)
-test1.author = 67
+try:
+    test1.author = 67
+except ValueError as err:
+    print(err)
+
 print('test 6: ', test1.author)
-test1.description = 'orioeioejfiojiotfiojijfei'
+try:
+    test1.description = 'orioeioejfiojiotfiojijfei'
+except ValueError as err:
+    print(err)
+
 print('test 7: ', test1.description)
-test1.description = 'jfijfijijfirjfirjfirjfrijfrijfrijfrijfirjfrifjrijfrijfirjfirjfirjfirjfrijfirjfirjfrijfirjrifjrijri'
+try:
+    test1.description = 'jfijfijijfirjfirjfirjfrijfrijfrijfrijfirjfrifjrijfrijfirjfirjfirjfirjfrijfirjfirjfrijfirjrifjrijri'
+except ValueError as err:
+    print(err)
+
 print('test 8: ', test1.description)
-test1.category = 'kikikikikikikikikikikikikikikikikikikikikikikikikikikikikikik'
+try:
+    test1.category = 'kikikikikikikikikikikikikikikikikikikikikikikikikikikikikikik'
+except ValueError as err:
+    print(err)
+
 print('test 9: ', test1.category)
-test1.category = 'kikikikikikikikikikik'
+try:
+    test1.category = 'kikikikikikikikikikik'
+except ValueError as err:
+    print(err)
+
 print('test 10: ', test1.category)
-test1.category = 33
+try:
+    test1.category = 33
+except ValueError as err:
+    print(err)
+
 print('test 11: ', test1.category)
-test1.views = 10
+try:
+    test1.views = 10
+except ValueError as err:
+    print(err)
+
 print('test 12: ', test1.views)
-test1.views = ' ydgeygdye'
+try:
+    test1.views = ' ydgeygdye'
+except ValueError as err:
+    print(err)
+    
 print('test 13: ', test1.views)
 test1.insert_new_comment('titlea', 'autor','1')
 test1.insert_new_comment('titleb', 'autor','2')

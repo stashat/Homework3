@@ -49,6 +49,3 @@ class TechArticle(Article):
             ", number_of_comments: " + str(len(self.comments)) + \
             ", creation_date: " + str(self.creation_date) + \
             ", language: " + str(self.lang)
-
-
-

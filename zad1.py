@@ -17,7 +17,8 @@ class Article():
         if all(letter.isalpha() or letter.isspace() for letter in str(value)) and len(str(value))<50:
             self.__title = value
         else:
-            print('title greska: samo alfabetski karakteri, unique, do 50')
+            raise ValueError('title greska: samo alfabetski karakteri, unique, do 50')
+            # print('title greska: samo alfabetski karakteri, unique, do 50')
 
     # author
     @property
@@ -29,7 +30,7 @@ class Article():
         if all(letter.isalpha() or letter.isspace() for letter in str(value)) and len(str(value))<100 and ' ' in str(value):
             self.__author = value
         else:
-            print('author greska: samo alfabetski karakteri, ime i prezime autora, ne duže od 100 karaktera ukupno')
+            raise ValueError('author greska: samo alfabetski karakteri, ime i prezime autora, ne duže od 100 karaktera ukupno')
 
     #description
     @property
@@ -41,7 +42,7 @@ class Article():
         if len(value)<300:
             self.__description = value
         else:
-            print('descripton greska: opis, do 300 karaktera')
+            raise ValueError('descripton greska: opis, do 300 karaktera')
 
     # category
     @property
@@ -53,7 +54,7 @@ class Article():
         if len(str(value))<20:
             self.__category = value
         else:
-            print('kategorija, ne više od 20 karaktera')
+            raise ValueError('kategorija, ne više od 20 karaktera')
         
     # views 
     @property
@@ -65,7 +66,7 @@ class Article():
         if type(value) == int:
             self.__views = value
         else:
-            print('views greska: broj pregleda, default = 0')
+            raise ValueError('views greska: broj pregleda, default = 0')
 
     # comments
     @property
@@ -141,4 +142,3 @@ class Article():
             ", category: " + str(self.category) + \
             ", views: " + str(self.views) + \
             ", number_of_comments: " + str(len(self.comments))
-
