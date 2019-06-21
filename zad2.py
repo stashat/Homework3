@@ -18,8 +18,9 @@ class TechArticle(Article):
         try:
             date = datetime.strptime(value, '%d/%m/%Y').date()
             self.__creation_date = date
-        except ValueError as err:
-            print('creation date greska: string treba da bude oblika d/m/y; ', err)
+        except ValueError:
+            # print('creation date greska: string treba da bude oblika d/m/y; ', err)
+            raise ValueError('creation date greska: string treba da bude oblika d/m/y')
 
     # lang
     @property
@@ -31,7 +32,7 @@ class TechArticle(Article):
         if str(value) == 'en' or str(value) == 'rs':
             self.__lang = value
         else:
-            print('language greska: dozvoljene vrijednosti su en i rs')
+            raise ValueError('language greska: dozvoljene vrijednosti su en i rs')
     
     def get_comments_by_term(self, term):
         comments_term = []
