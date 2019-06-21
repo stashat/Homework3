@@ -2,7 +2,8 @@ from zad1 import Article
 from zad2 import TechArticle
 import os
 
-# unosenje artikala
+###############################################################################
+# funkcija za unosenje artikala
 def input_articles():
     new_article = Article()
     while True:
@@ -45,7 +46,8 @@ def input_articles():
             print(err)
     return new_article
 
-
+###############################################################################
+# funkcija za unosenje techarticle
 def input_tech_articles():
     new_article = TechArticle()
     while True:
@@ -97,9 +99,14 @@ def article_titles(article_list_p):
         list_titles.append(article.title)
     return list_titles
 
+###############################################################################
+# definisanje konstanti i promjenljivih
 categories = ['mystery', 'drama', 'action', 'crime', 'adventure', 'tech']
 article_list = []
+category_filter = ""
+
 ###############################################################################
+# unosenje atricles za testiranje
 article = Article()
 article.title = 'titleA'
 article.author = 'author A'
@@ -109,13 +116,13 @@ article.category = 'action'
 article.insert_new_comment('titlea', 'autor','1')
 article.insert_new_comment('titleb', 'autor','2')
 article.insert_new_comment('titlec', 'autor','3')
-article.insert_new_comment('title4', 'autor3','3')
-article.insert_new_comment('titlea', 'autor','1')
-article.insert_new_comment('titleb', 'autor','2')
-article.insert_new_comment('titlec', 'autor','3')
-article.insert_new_comment('title4', 'autor3','3')
-article.insert_new_comment('title5', 'autor3','3')
-article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titled', 'autor3','3')
+article.insert_new_comment('titlee', 'autor','1')
+article.insert_new_comment('titlef', 'autor','2')
+article.insert_new_comment('titleg', 'autor','3')
+article.insert_new_comment('titleh', 'autor3','3')
+article.insert_new_comment('titlei', 'autor3','3')
+article.insert_new_comment('titlej', 'autor','1')
 article_list.append(article)
 
 article = Article()
@@ -127,7 +134,7 @@ article.category = 'mystery'
 article.insert_new_comment('titlea', 'autor','1')
 article.insert_new_comment('titleb', 'autor','2')
 article.insert_new_comment('titlec', 'autor','3')
-article.insert_new_comment('title4', 'autor3','3')
+article.insert_new_comment('titled', 'autor3','3')
 article_list.append(article)
 
 article = Article()
@@ -139,15 +146,15 @@ article.category = 'mystery'
 article.insert_new_comment('titlea', 'autor','1')
 article.insert_new_comment('titleb', 'autor','2')
 article.insert_new_comment('titlec', 'autor','3')
-article.insert_new_comment('title4', 'autor3','3')
-article.insert_new_comment('title5', 'autor3','3')
-article.insert_new_comment('titlea', 'autor','1')
-article.insert_new_comment('titlea', 'autor','1')
-article.insert_new_comment('titleb', 'autor','2')
-article.insert_new_comment('titlec', 'autor','3')
-article.insert_new_comment('title4', 'autor3','3')
-article.insert_new_comment('title5', 'autor3','3')
-article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titled', 'autor3','3')
+article.insert_new_comment('titlee', 'autor3','3')
+article.insert_new_comment('titlef', 'autor','1')
+article.insert_new_comment('titleg', 'autor','1')
+article.insert_new_comment('titleh', 'autor','2')
+article.insert_new_comment('titlei', 'autor','3')
+article.insert_new_comment('titlej', 'autor3','3')
+article.insert_new_comment('titlek', 'autor3','3')
+article.insert_new_comment('titlel', 'autor','1')
 article_list.append(article)
 
 article = Article()
@@ -170,13 +177,13 @@ article.lang = 'en'
 article.insert_new_comment('titlea', 'autor','1')
 article.insert_new_comment('titleb', 'autor','2')
 article.insert_new_comment('titlec', 'autor','3')
-article.insert_new_comment('title4', 'autor3','3')
-article.insert_new_comment('title5', 'autor3','3')
-article.insert_new_comment('titlea', 'autor','1')
-article.insert_new_comment('titleb', 'autor','2')
-article.insert_new_comment('titlec', 'autor','3')
-article.insert_new_comment('title4', 'autor3','3')
-article.insert_new_comment('title5', 'autor3','3')
+article.insert_new_comment('titled', 'autor3','3')
+article.insert_new_comment('titlee', 'autor3','3')
+article.insert_new_comment('titlef', 'autor','1')
+article.insert_new_comment('titleg', 'autor','2')
+article.insert_new_comment('titleh', 'autor','3')
+article.insert_new_comment('titlei', 'autor3','3')
+article.insert_new_comment('titlej', 'autor3','3')
 article_list.append(article)
 
 article = TechArticle()
@@ -189,9 +196,9 @@ article.lang = 'rs'
 article.insert_new_comment('titlea', 'autor','1')
 article.insert_new_comment('titleb', 'autor','2')
 article.insert_new_comment('titlec', 'autor','3')
-article.insert_new_comment('title4', 'autor3','3')
-article.insert_new_comment('title5', 'autor3','3')
-article.insert_new_comment('title6', 'autor3','3')
+article.insert_new_comment('titled', 'autor3','3')
+article.insert_new_comment('titlee', 'autor3','3')
+article.insert_new_comment('titlef', 'autor3','3')
 article_list.append(article)
 
 
@@ -216,31 +223,55 @@ while True:
         insert_comment_by_title = input('unesite title artikla: ')
         for article in article_list:
             if article.title == insert_comment_by_title:
-                article.insert_new_comment(input('unesite naslov: '), input('unosite autora: '), input('unesite opis: '))
+                article.insert_new_comment(input('unesite naslov: '),
+                                           input('unosite autora: '),
+                                           input('unesite opis: '))
                 print(article.comments)
     if izbor == '4':
-        list_category_sorted_by_views = []
-        list_category_sorted_by_num_com = []
+        categories_sorted_by_views = []
+        categories_sorted_by_num_com = []
         filtered_articles = []
-        category_filter = str(input('Unesite jednu od kategorija ' + str(categories) + ' : '))
+        category_filter = str(input('Unesite jednu od kategorija ' +\
+                              str(categories) + ' : '))
         for article in article_list:
             if article.category == category_filter:
                 filtered_articles.append(article)
                 print(article)
-                list_category_sorted_by_views = sorted(filtered_articles, key = lambda article: article.views, reverse = True)
-                list_category_sorted_by_num_com = sorted(filtered_articles, key = lambda article: len(article.comments), reverse = True)
-        category_sorted_by_views = open("category_sorted_by_views.txt","w+")
-        for article in list_category_sorted_by_views:
-            category_sorted_by_views.write(str(article) +'\n')
-        category_sorted_by_views.close()
-        category_sorted_by_num_com = open("category_sorted_by_num_com.txt","w+")
-        for article in list_category_sorted_by_num_com:
-            category_sorted_by_num_com.write(str(article) +'\n')
-        category_sorted_by_num_com.close()
-    if izbor == '5':
-        os.remove("category_sorted_by_views.txt")
-        os.remove("category_sorted_by_num_com.txt")
-        break
+        categories_sorted_by_views = sorted(filtered_articles, 
+                                            key = lambda article: article.views,
+                                            reverse = True)
+        categories_sorted_by_num_com = sorted(filtered_articles,
+                                              key = lambda article: len(article.comments),
+                                              reverse = True)
+        # write in file
+        file_n = category_filter + "_sorted_by_views.txt"
+        file = open(file_n, "w+")
+        for article in categories_sorted_by_views:
+            articles = "|".join(str(comm) for comm in article.comments)
+            file.write(str(article.title) + ';' +\
+                       str(article.author) + ';' +\
+                       str(article.description) + ';' +\
+                       articles + ';' +\
+                       str(len(article.comments)) + ';' +\
+                       str(article.views) +\
+                       '\n')
+        file.close()
 
-for article in article_list:
-    print(article)
+        # write in file
+        file_n = category_filter + "_sorted_by_num_com.txt"
+        file = open(file_n, "w+")
+        for article in categories_sorted_by_num_com:
+            articles = "|".join(str(comm) for comm in article.comments)
+            file.write(str(article.title) + ';' +\
+                       str(article.author) + ';' +\
+                       str(article.description) + ';' +\
+                       articles + ';' +\
+                       str(len(article.comments)) + ';' +\
+                       str(article.views) +\
+                       '\n')
+        file.close()
+    if izbor == '5':
+        if category_filter != "":
+            os.remove(category_filter + "_sorted_by_views.txt")
+            os.remove(category_filter + "_sorted_by_num_com.txt")
+        break
