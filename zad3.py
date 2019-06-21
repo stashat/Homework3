@@ -1,7 +1,8 @@
 from zad1 import Article
 from zad2 import TechArticle
+import os
 
-
+# unosenje artikala
 def input_articles():
     new_article = Article()
     while True:
@@ -103,41 +104,79 @@ article = Article()
 article.title = 'titleA'
 article.author = 'author A'
 article.description = 'description 1'
-article.views = 1
+article.views = 378
 article.category = 'action'
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titleb', 'autor','2')
+article.insert_new_comment('titlec', 'autor','3')
+article.insert_new_comment('title4', 'autor3','3')
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titleb', 'autor','2')
+article.insert_new_comment('titlec', 'autor','3')
+article.insert_new_comment('title4', 'autor3','3')
+article.insert_new_comment('title5', 'autor3','3')
+article.insert_new_comment('titlea', 'autor','1')
 article_list.append(article)
 
 article = Article()
 article.title = 'titleB'
 article.author = 'author B'
 article.description = 'description 2'
-article.views = 2
+article.views = 237
 article.category = 'mystery'
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titleb', 'autor','2')
+article.insert_new_comment('titlec', 'autor','3')
+article.insert_new_comment('title4', 'autor3','3')
 article_list.append(article)
 
 article = Article()
 article.title = 'titleC'
 article.author = 'author C'
 article.description = 'description 3'
-article.views = 3
+article.views = 878
 article.category = 'mystery'
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titleb', 'autor','2')
+article.insert_new_comment('titlec', 'autor','3')
+article.insert_new_comment('title4', 'autor3','3')
+article.insert_new_comment('title5', 'autor3','3')
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titleb', 'autor','2')
+article.insert_new_comment('titlec', 'autor','3')
+article.insert_new_comment('title4', 'autor3','3')
+article.insert_new_comment('title5', 'autor3','3')
+article.insert_new_comment('titlea', 'autor','1')
 article_list.append(article)
 
 article = Article()
 article.title = 'titleD'
 article.author = 'author D'
 article.description = 'description 4'
-article.views = 4
+article.views = 764
 article.category = 'action'
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titleb', 'autor','2')
 article_list.append(article)
 
 article = TechArticle()
 article.title = 'titleE'
 article.author = 'author E'
 article.description = 'description 5'
-article.views = 5
+article.views = 333
 article.creation_date = '2/4/2013'
 article.lang = 'en'
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titleb', 'autor','2')
+article.insert_new_comment('titlec', 'autor','3')
+article.insert_new_comment('title4', 'autor3','3')
+article.insert_new_comment('title5', 'autor3','3')
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titleb', 'autor','2')
+article.insert_new_comment('titlec', 'autor','3')
+article.insert_new_comment('title4', 'autor3','3')
+article.insert_new_comment('title5', 'autor3','3')
 article_list.append(article)
 
 article = TechArticle()
@@ -147,11 +186,17 @@ article.description = 'description 6'
 article.views = 6
 article.creation_date = '4/5/1999'
 article.lang = 'rs'
+article.insert_new_comment('titlea', 'autor','1')
+article.insert_new_comment('titleb', 'autor','2')
+article.insert_new_comment('titlec', 'autor','3')
+article.insert_new_comment('title4', 'autor3','3')
+article.insert_new_comment('title5', 'autor3','3')
+article.insert_new_comment('title6', 'autor3','3')
 article_list.append(article)
 
 
 ##############################################################################
-
+# UI
 while True:
     izbor = input('-------------------------------------------------------- \n'
                   'izaberi: \n'
@@ -159,12 +204,12 @@ while True:
                   '2 - unos tech atricle \n'
                   '3 - dodavanje komentara \n'
                   '4 - filterisanje po kategoriji \n'
-                  '10 - kraj \n')
+                  '5 - kraj \n')
     if izbor == '1':
         new_article = input_articles()
         article_list.append(new_article)
     if izbor == '2':
-        new_article = input_tech_articles()
+        new_article = input_tech_articles()                       
         article_list.append(new_article)
     if izbor == '3':
         print('postojeci titlovi: ', article_titles(article_list))
@@ -174,13 +219,27 @@ while True:
                 article.insert_new_comment(input('unesite naslov: '), input('unosite autora: '), input('unesite opis: '))
                 print(article.comments)
     if izbor == '4':
+        list_category_sorted_by_views = []
+        list_category_sorted_by_num_com = []
         filtered_articles = []
         category_filter = str(input('Unesite jednu od kategorija ' + str(categories) + ' : '))
         for article in article_list:
             if article.category == category_filter:
                 filtered_articles.append(article)
                 print(article)
-    if izbor == '10':
+                list_category_sorted_by_views = sorted(filtered_articles, key = lambda article: article.views, reverse = True)
+                list_category_sorted_by_num_com = sorted(filtered_articles, key = lambda article: len(article.comments), reverse = True)
+        category_sorted_by_views = open("category_sorted_by_views.txt","w+")
+        for article in list_category_sorted_by_views:
+            category_sorted_by_views.write(str(article) +'\n')
+        category_sorted_by_views.close()
+        category_sorted_by_num_com = open("category_sorted_by_num_com.txt","w+")
+        for article in list_category_sorted_by_num_com:
+            category_sorted_by_num_com.write(str(article) +'\n')
+        category_sorted_by_num_com.close()
+    if izbor == '5':
+        os.remove("category_sorted_by_views.txt")
+        os.remove("category_sorted_by_num_com.txt")
         break
 
 for article in article_list:
