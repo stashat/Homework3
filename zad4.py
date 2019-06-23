@@ -1,29 +1,72 @@
-import json
 from urllib.request import urlopen
+import json
 
-with urlopen("https://api.myjson.com/bins/19f6d9") as response:
-    data = response.read().decode('utf-8')
+def ruta_to_file(ruta):
+    SPECIAL_CHARS = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '[',
+                     ']', '{', '}', ';', ':', '.', '/', '<', '>', '?', '|',
+                     "`", '~', '-', '=', '+', '\\', ' ']
+    file_name_l = []
+    for char in ruta:
+        if char in SPECIAL_CHARS:
+            file_name_l.append('_')
+        else:
+            file_name_l.append(char.lower())
+    file_name = ''.join(file_name_l) + '.json'
+    return file_name
 
-data = json.loads(data)
+# potpun - sa return
+uri = 'https://api.myjson.com/bins/p08t1'
 
-lista_1 = ['timestamp', 'timestamp_utc']
-indeksi = [0,2]
-for br in indeksi:
-    for i in lista_1:
-        del data['flight_data']['outgoing'][br]['from'][i]
-        del data['flight_data']['outgoing'][br]['to'][i]
-        del data['flight_data']['return'][br]['from'][i]
-        del data['flight_data']['return'][br]['to'][i]
-del data['flight_data']['outgoing'][1]
-del data['flight_data']['return'][1]
+# nepotpun - bez return
+# uri = 'https://api.myjson.com/bins/8ew6d'
 
-lista_2 = ['final_date', 'adult_ind', '_type']
-for i in lista_2:
-    del data['passenger_data'][0][i]
+with urlopen(uri) as response:
+    source = response.read().decode('utf-8')
 
-lista_3 = ['_price_change', 'keep_alive']
-for i in lista_3:
-    del data[i]
+mydict = json.loads(source)
+start_dest = str(input('unijeti pocetnu destinaciju: '))
+end_dest   = str(input('unijeti krajnju destinaciju: '))
+# start_dest = 'Belgrade'
+# end_dest = 'New York City'
+ruta = start_dest + "|" + end_dest
+file_name = ruta_to_file(ruta)
 
-new_json = json.dumps(data, indent=2)
-print(new_json)
+if ruta == mydict['flight_data']['info']['route']:
+    outgoing_len = len(mydict['flight_data']['outgoing'])
+    for i in range(0, outgoing_len, 2):
+        del mydict['flight_data']['outgoing'][i]['from']['timestamp']
+        del mydict['flight_data']['outgoing'][i]['from']['timestamp_utc']
+        del mydict['flight_data']['outgoing'][i]['to']['timestamp']
+        del mydict['flight_data']['outgoing'][i]['to']['timestamp_utc']
+    for i in range(1, outgoing_len, 2):
+        del mydict['flight_data']['outgoing'][i]
+
+    try:
+        return_len = len(mydict['flight_data']['return'])
+        for i in range(0, return_len, 2):
+            del mydict['flight_data']['return'][i]['from']['timestamp']
+            del mydict['flight_data']['return'][i]['from']['timestamp_utc']
+            del mydict['flight_data']['return'][i]['to']['timestamp']
+            del mydict['flight_data']['return'][i]['to']['timestamp_utc']
+        for i in range(1, return_len, 2):
+            del mydict['flight_data']['return'][i]
+
+        passenger_len = len(mydict['passenger_data'])
+        for i in range(1, passenger_len):
+            del mydict['passenger_data'][i]
+        del mydict['passenger_data'][0]['final_date']
+        del mydict['passenger_data'][0]['adult_ind']
+        del mydict['passenger_data'][0]['_type']
+    except KeyError:
+        pass
+
+    del mydict['_price_change']
+    del mydict['keep_alive']
+
+    # new_json = json.dumps(mydict, indent=2)
+    # print(new_json)
+else:
+    print('nije izabrana postojeca ruta: ', mydict['flight_data']['info']['route'] )
+
+with open(file_name, 'w', encoding='utf-8') as f:
+    json.dump(mydict, f, indent=2, ensure_ascii=False)
