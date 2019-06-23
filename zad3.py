@@ -271,7 +271,7 @@ while True:
                        '\n')
         file.close()
     if izbor == '5':
-        if category_filter != "":
-            os.remove(category_filter + "_sorted_by_views.txt")
-            os.remove(category_filter + "_sorted_by_num_com.txt")
+        # if category_filter != "":
+            # os.remove(category_filter + "_sorted_by_views.txt")
+            # os.remove(category_filter + "_sorted_by_num_com.txt")
         break
